@@ -1,65 +1,91 @@
 # editor-json-visual
 
-Editor visual de JSON com validação de schema JSON. Stack: React 18 + TypeScript.
+![JavaScript/TypeScript](https://img.shields.io/badge/JS-TS-yellow?logo=javascript)   ![status: concluido](https://img.shields.io/badge/status-concluido-green)   ![licenca: MIT](https://img.shields.io/badge/licenca-MIT-blue)
 
-## Português
+## Resumo
 
-### Descrição
-Editor visual de JSON que edita o documento e valida contra um schema JSON. Mostra o JSON como árvore colapsável, destaca erros de validação com o caminho no documento e aceita o padrão mais usado do JSON Schema (tipo, obrigatório, propriedades, itens, tamanho, intervalo, padrão, enum).
+Aplicacao web em JavaScript/TypeScript. Projeto funcional, editor-json-visual
 
-### Como usar
-Instale as dependências:
+## Problema / por que existe
 
+O projeto entrega uma interface ou utilitario web para um recorte especifico, com foco em navegador como ambiente de execucao e sem dependencia de servidor proprio.
+
+## Arquitetura
+
+- Camada de apresentacao: componentes e paginas que renderizam a interface.
+- Camada de logica: funcoes e hooks que processam dados e estado.
+- Comunicacao: requisicoes HTTP a APIs externas ou dados locais, quando aplicavel.
+
+O build e feito com Vite (ou ferramenta equivalente), gerando arquivos estaticos prontos para hospedagem.
+
+## Tecnologias
+
+- JavaScript / TypeScript
+- react
+- react-dom
+- @vitejs/plugin-react
+- @types/react
+- @types/react-dom
+- typescript
+- vite
+- vitest
+- jsdom
+
+- Sem CI configurado neste repositorio.
+
+O repositorio contem testes automatizados.
+
+## O que faz
+
+Projeto funcional, editor-json-visual
+
+## Como rodar
+
+Requisitos: Node.js e npm (ou yarn/pnpm).
+
+```
+# instalar dependencias
 npm install
 
-Inicie o servidor de desenvolvimento:
+# rodar em desenvolvimento
+vite
 
-npm run dev
+# build para producao
+tsc --noEmit && vite build
 
-Abra http://localhost:5173. Cole um JSON e um schema, ou use os exemplos pré-carregados. A validação roda automaticamente ao mudar os textos; o botão "Validar JSON" dispara a checagem sob demanda.
+# rodar testes
+vitest run
+```
 
-### Testes
-Os testes cobrem o validador de schema (tipos, enum, const, intervalo, strings, objetos, arrays e erros aninhados).
+## Estrutura do projeto
 
-npm test
+- src/ (5 arquivo(s))
+- test/ (1 arquivo(s))
+- .gitignore, BRIEF.md, index.html, package-lock.json, package.json, README.en.md, README.md, tsconfig.json, vite.config.ts
 
-Para compilar e testar (porta de entrada da CI):
 
-npm run build
+## Trade-offs e decisões
 
-### Licença
-MIT
+- Build estatico: facil de hospedar (GitHub Pages, Vercel, Netlify) sem servidor.
+- Dependencias minimas para reduzir superficie de manutencao.
+- Navegador como unico ambiente de execucao necessario.
 
-### Autor
-Kelvin Oliveira
+## Limitações conhecidas
 
-## English
+- Funciona no navegador; depende de conexao a internet para recursos externos.
 
-### Description
-Visual JSON editor that edits the document and validates it against a JSON schema. Renders the JSON as a collapsible tree, highlights validation errors with the path in the document, and supports the most common JSON Schema keywords (type, required, properties, items, size, range, pattern, enum).
 
-### How to use
-Install dependencies:
+## Testes
 
-npm install
+```
+vitest run
+```
 
-Start the dev server:
+## Licença
 
-npm run dev
+Distribuído sob a licenca MIT. Consulte o arquivo `LICENSE` do repositorio.
 
-Open http://localhost:5173. Paste a JSON document and a schema, or use the preloaded examples. Validation runs automatically when the text changes; the "Validar JSON" button runs it on demand.
+## Autor
 
-### Tests
-Tests cover the schema validator (types, enum, const, range, strings, objects, arrays, nested errors).
-
-npm test
-
-To build and test (CI entry point):
-
-npm run build
-
-### License
-MIT
-
-### Author
-Kelvin Oliveira
+Kelvin Oliveira, https://github.com/KelvinOliveiraCode
+Portfolio: https://kelvinoliveiracode.github.io/portfolio/
