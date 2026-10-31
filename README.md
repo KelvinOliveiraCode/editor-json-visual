@@ -1,127 +1,101 @@
 # editor-json-visual
 
-<div align="center">
-
 [English](README.en.md) · **Português (Brasil)**
 
-</div>
-
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![React 18](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/) [![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
-
-### Projeto funcional ,  editor-json-visual
-
----
+![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=flat-square&logo=typescript&logoColor=white) ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react) ![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite) ![Vitest](https://img.shields.io/badge/Vitest-34%20testes-6E9F18?style=flat-square&logo=vitest) ![MIT](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)
 
 ## O que é
 
-Projeto funcional ,  editor-json-visual
+**Editor visual de JSON com validação de schema**: interface para **visualizar, editar e validar** documentos JSON contra um **schema JSON** (JSON Schema). É uma aplicação web (SPA) em React + TypeScript construída com Vite, que roda 100% no navegador.
 
----
+## Status
 
-## Início Rápido
+Aplicação web funcional (protótipo), com 34 testes de unidade passando e build de produção confirmado.
 
-```bash
-# Clone e entre
-git clone https://github.com/KelvinOliveiraCode/<repo>.git
-cd <repo>
+## Funcionalidades
 
-# Instale dependências
-npm install
+- **Visualização e edição de JSON** em editor navegável.
+- **Validação contra schema JSON** (`schemaValidator.ts`): a própria aplicação valida o documento contra o schema informado.
+- **Interface em React + TypeScript**, com temas e componentes tipados.
+- **Roda 100% offline/no navegador** — sem backend.
 
-# Servidor de desenvolvimento
-npm run dev
+## Arquitetura
 
-# Build para produção
-npm run build
+SPA em React montada pelo Vite. `EditorJSONVisual.tsx` é o componente principal; `schemaValidator.ts` encapsula a lógica de validação; `types.ts` define os tipos do domínio.
 
-# Execute os testes
-npm test
+```mermaid
+flowchart LR
+    APP[App.tsx] --> ED[EditorJSONVisual.tsx]
+    ED --> VAL[schemaValidator.ts]
+    ED --> TY[types.ts]
 ```
 
-## Como funciona
+## Stack
 
-Arquitetura de componente em arquivo único (`App.tsx`): toda a UI, estado e lógica vivem em um arquivo para simplicidade de deploy e build zero-config.
+- React 18.3, ReactDOM 18.3
+- TypeScript ~5.6
+- Vite 5.4 (build/dev), Vitest 2.1 + jsdom (testes)
+- Sem dependências de runtime além de React
 
-Decisões arquiteturais principais:
-- **Estado global** via `useState` + `useMemo` (evita overhead do Context API)
-- **Agregações memoizadas** para gráficos e insights
-- **Dados mock in-line** como constantes TypeScript para prototipagem sem backend
-- **IA baseada em regras** (`getAIResponse`) ,  determinística, offline, custo zero
+## Estrutura do repositório
 
----
+```
+editor-json-visual/
+├── src/
+│   ├── App.tsx · main.tsx
+│   ├── EditorJSONVisual.tsx   # componente principal
+│   ├── schemaValidator.ts     # validação contra schema JSON
+│   └── types.ts               # tipos do domínio
+├── test/schemaValidator.test.ts
+├── index.html · vite.config.ts · tsconfig.json
+└── package.json
+```
 
-## Capacidades
+## Pré-requisitos e instalação
 
-| Capacidade | Descrição |
-|------------|-------------|
-| Dashboard | 6 cards de métricas (Saldo, Receitas, Despesas, Economia, Investimentos, Patrimônio) |
-| Fluxo de Caixa | Gráfico de barras (7d/30d) com Recharts ,  Receitas, Despesas, Saldo por período |
-| Orçamentos | Orçamentos por categoria com barras de progresso, alertas de estouro |
-| Metas | Anéis de progresso com cálculo de economia mensal e contagem regressiva |
-| Assistente IA | Chat baseado em regras (getAIResponse) ,  análise de gastos, dicas, projeções |
-| Insights | Alertas automáticos: picos de delivery, crescimento patrimonial, breakdown por categoria |
-| Transações | Adicionar/editar receitas/despesas com categorias, tags, seletor de data |
-| Persistência | localStorage ,  estado sobrevive a reload, zero backend |
+Node.js ≥ 18 e npm.
 
+```bash
+npm install
+```
 
----
+## Como executar
 
+```bash
+npm run dev        # dev server (Vite)
+npm run build      # build de produção (tsc + vite build)
+npm run preview    # serve o build localmente
+```
 
+## Testes e qualidade
 
----
+Comandos reais (verificados pelo agente):
 
-## Perguntas Frequentes
+```bash
+npm test
+# Test Files  1 passed (1)
+# Tests       34 passed (34)
 
-<details>
-<summary><strong>O que é este projeto?</strong></summary>
+npm run build
+# ✓ built in ~1s (Vite 5.4.21)
+```
 
-Um estudo/projeto em React/TypeScript demonstrando conceitos fundamentais.
+## Decisões técnicas e trade-offs
 
-</details>
+- **JavaScript puro p/ validação no cliente**: sem backend nem upload dos dados.
+- **React + TS + Vite**: pilha moderna e tipada; build enxuto (bundle ~151 kB, ~48 kB gzip).
 
-<details>
-<summary><strong>Como executar?</strong></summary>
+## Limitações conhecidas
 
-Veja [Início Rápido](#início-rápido) para comandos copiáveis.
+- Validação cobre o que o schema suporta (validador próprio, não uma lib JSON Schema completa).
+- Sem persistência dos documentos (apenas na sessão do navegador).
 
-</details>
+## Processo de desenvolvimento
 
-<details>
-<summary><strong>Há testes?</strong></summary>
+Projeto individual de Kelvin Oliveira, construído com agentes de IA orquestrados e revisado pelo autor. A lógica de validação e a revisão são do autor.
 
-Nenhum teste automatizado neste repositório.
+## Licença e autor
 
-</details>
+MIT — Copyright (c) 2026 Kelvin Oliveira.
 
-<details>
-<summary><strong>Posso usar em produção?</strong></summary>
-
-Este é um **projeto de estudo/portfólio**. Revise e endureça (auth, persistência, monitoramento, etc.) antes de usar em produção.
-
-</details>
-
-
-
----
-
-## Documentação
-
-- **Código-Fonte** ,  Navegue pelo diretório `src/` para detalhes de implementação
-- **Referência da API** ,  Tipos TypeScript no fonte
-- **Diagrama de Arquitetura** ,  Veja [architecture.mermaid](docs/architecture.mermaid) (se presente)
-- **Changelog** ,  [CHANGELOG.md](CHANGELOG.md) (se presente)
-- **Contribuindo** ,  [CONTRIBUTING.md](CONTRIBUTING.md) (se presente)
-
-## Licença
-
-[MIT](LICENSE) ,  Kelvin Oliveira
-
----
-
-<div align="center">
-
-**Construído com** · TypeScript + React + Vite + Tailwind
-
-**Autor** · [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfolio](https://kelvinoliveiracode.github.io/portfolio/)
-
-</div>
+**Autor**: [Kelvin Oliveira](https://github.com/KelvinOliveiraCode) · [Portfólio](https://kelvinoliveiracode.github.io/portfolio/)
